@@ -27,7 +27,7 @@ export const JustPlayApp = () => {
                     <Search onResults={handleSearchResults} />
                 </Col>
                 <Col className="text-center" md={2}>
-                    <CreateGameButton/>
+                    <CreateGameButton onResults={handleSearchResults}/>
                 </Col>
             </Row>
             <Row>

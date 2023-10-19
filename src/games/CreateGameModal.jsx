@@ -19,7 +19,7 @@ const location = 'Select a Location'
 const localTeam = 'Select a Visitor Team'
 const visitorTeam = 'Select a Local Team'
 
-export const CreateGameModal = ({ modal, toggle }) => {
+export const CreateGameModal = ({ modal, toggle, success }) => {
 
     const [selectedLocation, setSelectedLocation] = useState({})
     const [selectedLocalTeam, setSelectedLocalTeam] = useState({})
@@ -37,11 +37,11 @@ export const CreateGameModal = ({ modal, toggle }) => {
     const handleSelectedVisitorTeam = (selectedItem) => {
         setSelectedVisitorTeam(selectedItem)
     }
-    const handleSelectedDate = ({target}) => {
+    const handleSelectedDate = ({ target }) => {
         const { value } = target
         setDate(value)
     }
-    const handleSelectedTime = ({target}) => {
+    const handleSelectedTime = ({ target }) => {
         const { value } = target
         setTime(value)
     }
@@ -64,8 +64,15 @@ export const CreateGameModal = ({ modal, toggle }) => {
 
     const saveGame = () => {
         gameService.post(game)
-            .then(({data}) => alert(data))
-            .catch(e => alert(e.message))
+            .then(({ data }) => {
+                alert('Saved Successfully')
+                toggle()
+                success(true)
+            })
+            .catch(e => {
+                alert(e.message)
+                success(false)
+            })
     }
 
     return (

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { LocationsDropdown } from "../../locations/LocationsDropdown"
+import gameDataManager from "../../services/gameDataManager"
 import gameService from "../../services/gameService"
 
 const location = 'Search by Locations'
@@ -9,24 +10,11 @@ export const Search = ({ onResults }) => {
     const [selectedLocation, setSelectedLocation] = useState({})
 
     const getAllData = () => {
-        gameService
-            .get()
-            .then(({ data }) => onResults(data))
-            .catch(error => {
-                console.log(error)
-            })
+        gameDataManager.getAllData(onResults)
     }
 
     const getGameByLocation = () => {
-        if (selectedLocation.id) {
-            gameService
-                .getByLocationId(selectedLocation.id)
-                .then(({ data }) => onResults(data))
-                .catch(error => {
-                    console.log(error)
-                })
-
-        }
+        gameDataManager.getGameByLocation(onResults, selectedLocation)
     }
 
     useEffect(() => {

@@ -25,7 +25,7 @@ export const JPDropdown = ({ itemList, label, onItemSelected }) => {
                             handleSelectedItem({ "id": 0, "name": "b" })
                         }
                     >
-                        All locations
+                        All Items
                     </DropdownItem>
                     {itemList.map(e => {
                         return (
