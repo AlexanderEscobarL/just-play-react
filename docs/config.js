@@ -1,0 +1,9 @@
+const hostname = window && window.location && window.location.hostname
+let backendHost = `https://${hostname}`
+const contextPath = '/api'
+
+if(backendHost.includes('127.0.0.1') || backendHost.includes('localhost') ){
+    backendHost = 'http://localhost:8080'
+}
+
+window.baseURL = `${backendHost}${contextPath}`
