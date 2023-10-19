@@ -22,7 +22,23 @@ const getGameByLocation = (onResults, selectedLocation) => {
     }
 }
 
+const save = (toggle, success, game) => {
+    if(game.dateAndTime && game.localTeam?.id > 0 && game.visitorTeam?.id > 0 && game.location?.id > 0){
+        gameService.post(game)
+        .then(({ data }) => {
+            alert('Saved Successfully, ID: ', data.id)
+            toggle()
+            success(true)
+        })
+        .catch(e => {
+            alert(e.message)
+            success(false)
+        })
+    }
+}
+
 export default {
     getAllData,
     getGameByLocation,
+    save,
 }

@@ -12,6 +12,7 @@ import {
     Input
 } from 'reactstrap'
 import { LocationsDropdown } from '../locations/LocationsDropdown'
+import gameDataManager from '../services/gameDataManager'
 import gameService from '../services/gameService'
 import { TeamsDropdown } from '../teams/TeamsDropdown'
 
@@ -63,16 +64,7 @@ export const CreateGameModal = ({ modal, toggle, success }) => {
     }
 
     const saveGame = () => {
-        gameService.post(game)
-            .then(({ data }) => {
-                alert('Saved Successfully')
-                toggle()
-                success(true)
-            })
-            .catch(e => {
-                alert(e.message)
-                success(false)
-            })
+        gameDataManager.save(toggle, success, game)
     }
 
     return (
@@ -120,6 +112,7 @@ export const CreateGameModal = ({ modal, toggle, success }) => {
                                 name="date"
                                 placeholder="date placeholder"
                                 type="date"
+                                required
                                 onChange={handleSelectedDate}
                             />
                         </FormGroup>
@@ -132,13 +125,14 @@ export const CreateGameModal = ({ modal, toggle, success }) => {
                                 name="time"
                                 placeholder="time placeholder"
                                 type="time"
+                                required
                                 onChange={handleSelectedTime}
                             />
                         </FormGroup>
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={handleSave}>
+                    <Button color="primary" onClick={handleSave} >
                         Save Game
                     </Button>{' '}
                     <Button color="secondary" onClick={toggle}>
